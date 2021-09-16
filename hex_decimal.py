@@ -5,21 +5,34 @@ Forrit sem gerir notanda kleift að varpa
 hex tölu yfir í tugatölu og öfugt.
 """
 
-#Útfærslan verður að samanstanda af eftirfarandi föllum:
-    #def decimal_to_hex(dec_int)
-        #Skila hex streng sem samsvarar gefinni tugatölu
-    #hex_str_to_decimal(hex_str)
-        #Skila tugatölu sem samsvarar gefnum hex streng
-    #display_menu()
-        #Birtir valmöguleika
-
-
 #Aðalfall
 def main():
     display_menu()
 
+#Valseðill notanda
+def display_menu():
+    print()
+    print("d. Decimal to hex")
+    print("h. Hex to decimal")
+    print("x. Exit\n")
+
+    user_choice = input("Enter option: ")
+    if user_choice == "d":
+        chosen_decimal = int(input("Decimal number: "))
+        decimal_to_hex_str(chosen_decimal)
+    elif user_choice == "h":
+        #Leyfum upper og lower gildi í hex input:
+        chosen_hex = input("Hex number: ") 
+        chosen_hex_lower = chosen_hex.lower()
+        hex_str_to_decimal(chosen_hex_lower)
+    elif user_choice == "x":
+        return None
+    else:
+        print("Invalid option!")
+        display_menu()
+
 #Decimal -> Hex
-def decimal_to_hex(dec_int):
+def decimal_to_hex_str(dec_int):
     user_num = dec_int
 
     remainder_list = []
@@ -54,38 +67,20 @@ def decimal_to_hex(dec_int):
     #Reverse-um lista og prentum án bils/hornklofa        
     final_list.reverse()
     print("The hex is ",*final_list, sep='')
-    print()
     main()
 
 #Hex -> Decimal
 def hex_str_to_decimal(hex_str):
 
     user_hex = hex_str
+    try:
+        decimal = int(user_hex, 16)
+        print(f"The decimal is {decimal}")
+    except: #Skilar None ef input er ekki Hex gildi
+        result = None
+        print("The decimal is", result)
 
-    decimal = int(user_hex, 16)
-
-    print(f"Decimal number: {decimal}")
     main()
-
-#Valseðill notanda
-def display_menu():
-    print()
-    print("d. Decimal to hex")
-    print("h. Hex to decimal")
-    print("x. Exit\n")
-
-    user_choice = input("Enter option: ")
-    if user_choice == "d":
-        chosen_decimal = int(input("Decimal number: "))
-        decimal_to_hex(chosen_decimal)
-    elif user_choice == "h":
-        chosen_hex = input("Hex number:")
-        hex_str_to_decimal(chosen_hex)
-    elif user_choice == "x":
-        return None
-    else:
-        print("Invalid option!")
-        display_menu()
 
 #Aðalforrit:
 if __name__ == "__main__":
