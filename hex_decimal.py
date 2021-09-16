@@ -1,7 +1,10 @@
 """"
+Höfundur: Guðmundur Kristján
+
 Forrit sem gerir notanda kleift að varpa
 hex tölu yfir í tugatölu og öfugt.
 """
+
 #Útfærslan verður að samanstanda af eftirfarandi föllum:
     #def decimal_to_hex(dec_int)
         #Skila hex streng sem samsvarar gefinni tugatölu
@@ -48,13 +51,13 @@ def decimal_to_hex(dec_int):
         elif (item == 15):
             final_list.append("F")
 
-    #Reversum lista og prentum án bils/hornklofa        
+    #Reverse-um lista og prentum án bils/hornklofa        
     final_list.reverse()
-    print("The hex is: ",*final_list, sep='')
+    print("The hex is ",*final_list, sep='')
     print()
     main()
 
-#Hex to Decimal
+#Hex -> Decimal
 def hex_str_to_decimal(hex_str):
 
     user_hex = hex_str
@@ -64,8 +67,7 @@ def hex_str_to_decimal(hex_str):
     print(f"Decimal number: {decimal}")
     main()
 
-
-#Display Menu
+#Valseðill notanda
 def display_menu():
     print()
     print("d. Decimal to hex")
@@ -81,7 +83,10 @@ def display_menu():
         hex_str_to_decimal(chosen_hex)
     elif user_choice == "x":
         return None
+    else:
+        print("Invalid option!")
+        display_menu()
 
-# Main program starts here
+#Aðalforrit:
 if __name__ == "__main__":
     main()
