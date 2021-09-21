@@ -5,83 +5,77 @@ Forrit sem gerir notanda kleift að varpa
 hex tölu yfir í tugatölu og öfugt.
 """
 
-#Aðalfall
-def main():
-    display_menu()
-
-#Valseðill notanda
+# Valseðill notanda
 def display_menu():
-    print()
-    print("d. Decimal to hex")
+
+    print("\nd. Decimal to hex")
     print("h. Hex to decimal")
     print("x. Exit\n")
 
-    user_choice = input("Enter option: ")
-    if user_choice == "d":
-        chosen_decimal = int(input("Decimal number: "))
-        decimal_to_hex_str(chosen_decimal)
-    elif user_choice == "h":
-        #Leyfum upper og lower gildi í hex input:
-        chosen_hex = input("Hex number: ") 
-        chosen_hex_lower = chosen_hex.lower()
-        hex_str_to_decimal(chosen_hex_lower)
-    elif user_choice == "x":
-        return None
-    else:
-        print("Invalid option!")
-        display_menu()
-
-#Decimal -> Hex
+    
+# Decimal -> Hex_str
 def decimal_to_hex_str(dec_int):
-    user_num = dec_int
+    # Ítrum yfir inputtið og vistum sem streng
+    created_hex_str = ""
+    while dec_int != 0:
+        remainder = dec_int % 16
+        dec_int = dec_int // 16
+        remainder_str = str(hex_str_to_proper_hex(remainder))
+        created_hex_str += remainder_str
+    created_hex_str = created_hex_str[::-1]
+    return created_hex_str
 
-    remainder_list = []
-    final_list = []
-    result = user_num
+# Hex_str er gefið rétt nafn skv. Hex kerfi
+def hex_str_to_proper_hex(hex_str):
+    if (hex_str == 0):
+        hex_str = 0
+    elif (hex_str < 10):
+        hex_str = hex_str
+    elif (hex_str == 10):
+        hex_str = ("A")
+    elif (hex_str == 11):
+        hex_str = ("B")
+    elif (hex_str == 12):
+        hex_str = ("C")
+    elif (hex_str == 13):
+        hex_str = ("D")
+    elif (hex_str == 14):
+        hex_str = ("E")
+    elif (hex_str == 15):
+        hex_str = ("F")
+    return hex_str
 
-    #Söfnum afgöngum frá floor deilingu í lista 
-    while result != 0:
-        remainder = result % 16
-        result = result // 16
-        remainder_list.append(remainder)
-
-    #Gefum tölum í lista heiti skv. Hex kerfi
-    for item in remainder_list:
-        if (item == 0):
-            final_list.append(0)
-        elif (item < 10):
-            final_list.append(item) 
-        elif (item == 10):
-            final_list.append("A")
-        elif (item == 11):
-            final_list.append("B")
-        elif (item == 12):
-            final_list.append("C")
-        elif (item == 13):
-            final_list.append("D")
-        elif (item == 14):
-            final_list.append("E")
-        elif (item == 15):
-            final_list.append("F")
-
-    #Reverse-um lista og prentum án bils/hornklofa        
-    final_list.reverse()
-    print("The hex is ",*final_list, sep='')
-    main()
-
-#Hex -> Decimal
+# Hex_string breytt í Decimal tölu
 def hex_str_to_decimal(hex_str):
 
-    user_hex = hex_str
     try:
-        decimal = int(user_hex, 16)
-        print(f"The decimal is {decimal}")
-    except: #Skilar None ef input er ekki Hex gildi
+        decimal = int(hex_str, 16)
+        return decimal
+    except: # Skilar None ef input er ekki Hex gildi
         result = None
-        print("The decimal is", result)
+        return result
 
-    main()
+# Aðalfall
+def main():
+    user_choice = ("")
+    while user_choice != ("x"):
+        display_menu()
+        user_choice = input("Enter option: ")
+        if user_choice == "d":
+            chosen_decimal = int(input("Decimal number: "))
+            hex_string = decimal_to_hex_str(chosen_decimal)
+            print(f"The hex is {hex_string}")    
+        elif user_choice == "h":
+            # Leyfum upper og lower gildi í chosen_hex:
+            chosen_hex = input("Hex number: ") 
+            chosen_hex_lower = chosen_hex.lower()
+            converted_int = hex_str_to_decimal(chosen_hex_lower)
+            print(f"The decimal is {converted_int}")
+        elif user_choice == "x":
+            return None
+        else:
+            print("Invalid option!")
 
-#Aðalforrit:
+# Aðalforrit:
 if __name__ == "__main__":
     main()
